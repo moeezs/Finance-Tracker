@@ -11,6 +11,7 @@ function App() {
   function addExpense(expense, amount) {
     if (expense === '' || amount === '') {
       alert('Please enter both expense and amount');
+      setIsPopupOpen(true)
       return;
     }
     if (expense === 'Sample' && amount === '1') {
