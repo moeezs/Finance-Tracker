@@ -11,7 +11,7 @@ function App() {
   function addExpense(expense, amount) {
     if (expense === '' || amount === '') {
       alert('Please enter both expense and amount');
-      setIsPopupOpen(true)
+      setIsPopupOpen(true);
       return;
     }
     if (expense === 'Sample' && amount === '1') {
@@ -27,11 +27,18 @@ function App() {
 
     doc.text('Personal Finance Report', 105, 10, { align: 'center' });
     doc.autoTable({
+      head: [["Expenses Count", "Total Expenses Amount ($)"]],
+      body: [[expenses.length, expenses.reduce((sum, expense) => sum + parseInt(expense[1]), 0)]],
+      startY: 20
+      // TODO: give the columns the same width
+    })
+    doc.autoTable({
       head: [col],
       body: expenses,
-      startY: 15
+      startY: 40
     });
-    doc.save("YourFinanceReport.pdf");
+    window.open(doc.output('bloburl'), '_blank');
+    //doc.save("YourFinanceReport.pdf");
   }
 
   return (
